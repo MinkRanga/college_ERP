@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI(
-    title="College ERP",
-    version="1.0.0"
-)
+import app.models
 
-@app.get("/")
-def home():
-    return {
-        "message": "College ERP Backend Running"
-    }
+from app.api.auth import router as auth_router
+from app.api.users import router as users_router
+
+app = FastAPI()
+
+app.include_router(auth_router)
+app.include_router(users_router)
